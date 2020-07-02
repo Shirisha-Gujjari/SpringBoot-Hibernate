@@ -1,6 +1,5 @@
 package com.sagarandcompany.FirstDemo.controller;
 
-import com.sagarandcompany.FirstDemo.domain.Department;
 import com.sagarandcompany.FirstDemo.domain.Employee;
 import com.sagarandcompany.FirstDemo.service.EmployeeService;
 import com.sagarandcompany.FirstDemo.util.ResponseDTO;

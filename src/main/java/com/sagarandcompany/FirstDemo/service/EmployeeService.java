@@ -20,19 +20,8 @@ public class EmployeeService {
     EntityManager entityManager;
 
     public Employee save(Employee employee) {
-        Session session = entityManager.unwrap(Session.class);
-        session.getTransaction().begin();
-        Employee dbEmp = session.find(Employee.class, employee.getId());
-        dbEmp.setName(employee.getName());
-        dbEmp.setEmail(employee.getName());
-        dbEmp.setSalary(6578);
-        session.update(dbEmp);
-        session.flush();
-
-        //detaached object
-        dbEmp.setEmail("Sagar@gmail.com");
-        session.merge(dbEmp);
-        session.getTransaction().commit();
+        System.out.println("i am in save method.....");
+        employeeRepository.save(employee);
         return employee;
     }
 
@@ -49,6 +38,7 @@ public class EmployeeService {
     }
 
     public Employee get(Long id) {
+        System.out.println("i am in get metod...............");
         Session session = entityManager.unwrap(Session.class);
         Employee employee = session.find(Employee.class, id);
 //        Employee empp = new Employee();
