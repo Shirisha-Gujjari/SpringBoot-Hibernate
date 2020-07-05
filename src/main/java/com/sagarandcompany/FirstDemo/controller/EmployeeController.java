@@ -19,6 +19,7 @@ public class EmployeeController {
 //        Department department = new Department();
 //        department.setName("Computer");
 //        employee.setDepartment(department);
+
         Employee dbEmp = employeeService.
                 save(employee);
         ModelAndView modelAndView = new ModelAndView("success");

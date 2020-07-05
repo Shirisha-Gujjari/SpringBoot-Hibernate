@@ -1,7 +1,9 @@
 package com.sagarandcompany.FirstDemo.service;
 
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
+import com.sagarandcompany.FirstDemo.domain.Employee;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
@@ -21,16 +23,25 @@ public class EmployeeAspect {
 //    public void after(JoinPoint joinPoint) {
 //        System.out.println("After Method----------------" + joinPoint.getTarget());
 //    }
-    @Around("execution(* com.sagarandcompany.FirstDemo.service.EmployeeService.*(..))")
-    public void around(ProceedingJoinPoint joinPoint) throws Throwable {
-        System.out.println("Before around Method----------------");
+//    @Around("execution(* com.sagarandcompany.FirstDemo.service.EmployeeService.*(..))")
+//    public void around(ProceedingJoinPoint joinPoint) throws Throwable {
+//        System.out.println("Before around Method----------------");
+//
+//        try {
+//            joinPoint.proceed();
+//        } finally {
+//            //Do Something useful, If you have
+//        }
+//        System.out.println("After Method----------------");
+//
+//    }
+    @AfterReturning(returning = "object", value = "execution(* com.sagarandcompany.FirstDemo.service.EmployeeService.*(..))")
+    public void after(JoinPoint joinPoint, Employee object) {
+        System.out.println("After Returning Method----------------" + object.toString());
+    }
 
-        try {
-            joinPoint.proceed();
-        } finally {
-            //Do Something useful, If you have
-        }
-        System.out.println("After Method----------------");
-
+    @AfterThrowing(throwing = "throwable", value = "execution(* com.sagarandcompany.FirstDemo.service.EmployeeService.*(..))")
+    public void after(JoinPoint joinPoint, Throwable throwable) {
+        System.out.println("Exception----------------" + throwable.toString());
     }
 }

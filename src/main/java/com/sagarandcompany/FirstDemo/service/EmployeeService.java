@@ -20,6 +20,8 @@ public class EmployeeService {
     EntityManager entityManager;
 
     public Employee save(Employee employee) {
+        if (true)
+            throw new RuntimeException("Testing");
         System.out.println("i am in save method.....");
         employeeRepository.save(employee);
         return employee;
