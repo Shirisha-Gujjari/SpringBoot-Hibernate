@@ -5,7 +5,10 @@ import com.sagarandcompany.FirstDemo.repository.EmployeeRepository;
 import com.sagarandcompany.FirstDemo.util.ResponseDTO;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,12 +22,19 @@ public class EmployeeService {
     @PersistenceContext
     EntityManager entityManager;
 
-    public Employee save(Employee employee) {
-        if (true)
-            throw new RuntimeException("Testing");
-        System.out.println("i am in save method.....");
-        employeeRepository.save(employee);
+    @Transactional(propagation = Propagation.REQUIRED,, rollbackFor = {DataIntegrityViolationException.class})
+    public Employee save(Employee employee) throws Exception {
+        Session session = entityManager.unwrap(Session.class);
+        test(employee);
+        session.persist(employee);
         return employee;
+    }
+
+    @Transactional(propagation = Propagation.NEVER)
+    public void test(Employee employee) {
+
+//        employee.setEmail("test@gmail.com");
+//        entityManager.persist(employee);
     }
 
     public ResponseDTO findByEmail(String email) {

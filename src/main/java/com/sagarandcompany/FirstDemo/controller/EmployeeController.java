@@ -15,13 +15,8 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping("/save")
-    public ModelAndView save(@ModelAttribute Employee employee) {
-//        Department department = new Department();
-//        department.setName("Computer");
-//        employee.setDepartment(department);
-
-        Employee dbEmp = employeeService.
-                save(employee);
+    public ModelAndView save(@ModelAttribute Employee employee) throws Exception {
+        Employee dbEmp = employeeService.save(employee);
         ModelAndView modelAndView = new ModelAndView("success");
         return modelAndView;
     }
